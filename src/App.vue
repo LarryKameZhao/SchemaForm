@@ -1,16 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <h1>{{ username }}</h1>
+    <h1>{{ userInfo }}</h1>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import { computed, defineComponent, reactive, ref } from "vue";
 
 export default defineComponent({
   name: "App",
-  components: {
-    HelloWorld
+  components: {},
+  setup(props, { slots, attrs, emit }) {
+    const state = reactive({
+      name: "name"
+    });
+    const username = ref("username");
+    const userInfo = computed(() => {
+      return `username:${username.value}`;
+    });
+    setTimeout(() => {
+      username.value += "1";
+    }, 1000);
+    return {
+      username,
+      userInfo
+    };
   }
 });
 </script>
